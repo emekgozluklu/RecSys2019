@@ -19,6 +19,8 @@ ratio = float(sys.argv[2])
 
 lines = int(os.popen(f'wc -l < {filepath}').read())
 
+header = os.popen(f'echo "$(head -n1 {filepath})"')
+
 if ratio >= 1:
     ratio /= 100
 
@@ -34,4 +36,7 @@ except FileExistsError:
 
 out_file = out_path + out_file.split(os.path.sep)[-1]
 print(f"Sampling started.\nRows in original file: {lines}\nRows in sample : {sample_size}")
-os.system(f"shuf -n {sample_size} {filepath} > {out_file}")
+#os.system(f"tail -n +2 {filepath} | shuf -n {sample_size} -o {out_file} && sed -i '1i{header}' {out_file}")
+os.system(f'head -n1 {filepath} > {out_file}')
+os.system(f'tail -n+2 {filepath} | shuf -n {sample_size} >> {out_file}')
+#os.system(f"shuf -n {sample_size} {filepath} > {out_file}")
