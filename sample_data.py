@@ -12,7 +12,7 @@ Output:
 """
 
 if len(sys.argv) != 3:
-    raise "Error. Proper usage: python3 sample_data.py <filepath> <ratio>"
+    raise Exception("Error. Proper usage: python3 sample_data.py <filepath> <ratio>")
 
 filepath = sys.argv[1]
 ratio = float(sys.argv[2])
